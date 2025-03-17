@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOPATEL SILMANDE</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome pour les icônes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1a73e8;
+            --secondary-blue: #4285f4;
+            --dark-blue: #0d47a1;
+            --light-blue: #e8f0fe;
+            --accent-blue: #00b0ff;
+        }
+        
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--light-blue) 0%, #ffffff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 550px;
+            padding: 20px;
+        }
+        
+        .hotel-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 35px 25px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hotel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo-img {
+            max-width: 220px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            background-color: white;
+        }
+        
+        .hotel-title {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            color: #333;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 0.5s ease-out;
+        }
+        
+        .social-link:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .social-link:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .social-link:active {
+            transform: translateY(1px);
+        }
+        
+        .social-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: var(--light-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover .social-icon-wrapper {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-icon {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover .social-icon {
+            color: white;
+        }
+        
+        .link-text {
+            flex-grow: 1;
+        }
+        
+        .arrow-icon {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: var(--dark-blue);
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        
+        .animation-delay-1 { animation-delay: 0.1s; }
+        .animation-delay-2 { animation-delay: 0.2s; }
+        .animation-delay-3 { animation-delay: 0.3s; }
+        .animation-delay-4 { animation-delay: 0.4s; }
+        .animation-delay-5 { animation-delay: 0.5s; }
+        
+        .qr-hint {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 576px) {
+            .hotel-card {
+                padding: 25px 20px;
+                margin-top: 20px;
+            }
+            
+            .hotel-title {
+                font-size: 1.7rem;
+            }
+            
+            .logo-img {
+                max-width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hotel-card">
+            <div class="logo-container">
+                <!-- Remplacer avec le logo de l'hôtel -->
+                <img src="assets/images/sopatel_logo.jpg" alt="Logo de sopatel silmande" class="logo-img">
+            </div>
+            
+            <h1 class="hotel-title">SOPATEL SILMANDE</h1>
+            
+            <div class="social-links">
+                <a href="https://sopatelsilmande.com/" class="social-link animation-delay-1" target="_blank">
+                    <div class="social-icon-wrapper">
+                        <i class="fas fa-globe social-icon"></i>
+                    </div>
+                    <span class="link-text">Site Web Officiel</span>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </a>
+                
+                <a href="https://www.facebook.com/@sopatelsilmandeouagadougou/?locale=fr_FR" class="social-link animation-delay-2" target="_blank">
+                    <div class="social-icon-wrapper">
+                        <i class="fab fa-facebook-f social-icon"></i>
+                    </div>
+                    <span class="link-text">Facebook</span>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </a>
+                
+                <a href="https://www.instagram.com/sopatelsilmandeouagadougou?igsh=MTIxbmpubWF6bjBrOQ==" class="social-link animation-delay-3" target="_blank">
+                    <div class="social-icon-wrapper">
+                        <i class="fab fa-instagram social-icon"></i>
+                    </div>
+                    <span class="link-text">Instagram</span>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </a>
+                
+                <a href="https://www.linkedin.com/company/sopatel-silmande-sa/" class="social-link animation-delay-4" target="_blank">
+                    <div class="social-icon-wrapper">
+                        <i class="fab fa-linkedin-in social-icon"></i>
+                    </div>
+                    <span class="link-text">LinkedIn</span>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </a>
+                
+                <a href="https://www.tiktok.com/@sopatelsilmande?_t=ZM-8ufxDTgUVGB&_r=1" class="social-link animation-delay-5" target="_blank">
+                    <div class="social-icon-wrapper">
+                        <i class="fab fa-tiktok social-icon"></i>
+                    </div>
+                    <span class="link-text">TikTok</span>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </a>
+            </div>
+            
+            <div class="footer">
+                <p>Nous sommes impatients de vous accueillir!</p>
+            </div>
+        </div>
+        
+        <div class="qr-hint">
+            Scannez ce QR code pour découvrir notre présence en ligne
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
